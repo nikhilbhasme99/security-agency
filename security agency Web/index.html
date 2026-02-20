@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HRM Pro - Advanced Human Resource Management</title>
+    <meta name="description"
+        content="A premium HRM solution for employee management, payroll, and attendance tracking.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="hidden">
+    <!-- Login Page -->
+    <div id="login-container" class="login-page">
+        <div class="login-card fade-in">
+            <div class="logo-icon">H</div>
+            <h2>HRM <span style="color: var(--primary)">Pro</span></h2>
+            <p>Please enter your credentials to continue.</p>
+            <form id="login-form">
+                <div class="form-group" style="text-align: left;">
+                    <label>Username</label>
+                    <input type="text" id="login-username" class="form-control" placeholder="admin or superadmin"
+                        required>
+                </div>
+                <div class="form-group" style="text-align: left;">
+                    <label>Password</label>
+                    <input type="password" id="login-password" class="form-control" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-primary"
+                    style="width: 100%; justify-content: center; margin-top: 1rem; padding: 0.8rem;">
+                    Sign In
+                </button>
+            </form>
+            <div id="login-error" style="color: var(--danger); margin-top: 1rem; font-size: 0.875rem;" class="hidden">
+                Invalid username or password. Please try again.
+            </div>
+        </div>
+    </div>
+
+    <div class="app-container hidden" id="app-shell">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-icon">H</div>
+                <span class="logo-text">HRM <span style="color: var(--primary)">Pro</span></span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-group" data-role="all">
+                    <p class="nav-group-label">Core</p>
+                    <a href="#" class="nav-item active" data-view="dashboard">
+                        <i data-lucide="layout-dashboard"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </div>
+
+                <div class="nav-group" data-role="all">
+                    <p class="nav-group-label">Management</p>
+                    <a href="#" class="nav-item" data-view="employees">
+                        <i data-lucide="users"></i>
+                        <span>Employees</span>
+                    </a>
+                    <a href="#" class="nav-item" data-view="shifts">
+                        <i data-lucide="calendar"></i>
+                        <span>Shifts</span>
+                    </a>
+                    <a href="#" class="nav-item" data-view="attendance">
+                        <i data-lucide="clock"></i>
+                        <span>Attendance</span>
+                    </a>
+                    <a href="#" class="nav-item" data-view="payroll" data-admin-hide="true">
+                        <i data-lucide="banknote"></i>
+                        <span>Payroll</span>
+                    </a>
+                </div>
+
+                <div class="nav-group" data-role="all">
+                    <p class="nav-group-label">Tools & Onboarding</p>
+                    <a href="#" class="nav-item" data-view="id-cards">
+                        <i data-lucide="contact-2"></i>
+                        <span>ID Card Creator</span>
+                    </a>
+                    <a href="#" class="nav-item" data-view="clients">
+                        <i data-lucide="briefcase"></i>
+                        <span>Client Status</span>
+                    </a>
+                </div>
+
+                <div class="nav-group" data-role="superadmin-only">
+                    <p class="nav-group-label">Organization</p>
+                    <a href="#" class="nav-item" data-view="companies">
+                        <i data-lucide="building-2"></i>
+                        <span>Companies</span>
+                    </a>
+                    <a href="#" class="nav-item" data-view="locations">
+                        <i data-lucide="map-pin"></i>
+                        <span>Locations</span>
+                    </a>
+                </div>
+
+                <div class="nav-group" data-role="superadmin-only">
+                    <p class="nav-group-label">System</p>
+                    <a href="#" class="nav-item" data-view="admin">
+                        <i data-lucide="shield-check"></i>
+                        <span>Admin Panel</span>
+                    </a>
+                    <a href="#" class="nav-item" data-view="reminders">
+                        <i data-lucide="bell"></i>
+                        <span>Reminders</span>
+                    </a>
+                    <a href="#" class="nav-item" data-view="settings">
+                        <i data-lucide="settings"></i>
+                        <span>Settings</span>
+                    </a>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer" style="padding: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05)">
+                <div class="nav-item" style="margin-bottom: 0;" id="logout-btn">
+                    <i data-lucide="log-out"></i>
+                    <span>Logout</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <div class="header-left">
+                    <h1 id="page-title">Dashboard</h1>
+                </div>
+
+                <div class="header-right">
+                    <div class="search-bar">
+                        <i data-lucide="search"></i>
+                        <input type="text" placeholder="Search anything...">
+                    </div>
+
+                    <button class="icon-button theme-toggle" title="Toggle Dark Mode">
+                        <i data-lucide="moon"></i>
+                    </button>
+
+                    <button class="icon-button" title="Notifications">
+                        <i data-lucide="bell"></i>
+                        <span class="badge-dot"></span>
+                    </button>
+
+                    <div class="user-profile">
+                        <div class="user-avatar" id="current-user-avatar">AD</div>
+                        <div class="user-info" style="display: flex; flex-direction: column;">
+                            <span style="font-size: 0.875rem; font-weight: 600;" id="current-user-name">Super
+                                Admin</span>
+                            <span style="font-size: 0.75rem; color: var(--text-muted);">Admin Access</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-area" id="main-view">
+                <!-- Views will be injected here by app.js -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal-content fade-in">
+            <div class="modal-header">
+                <h2 id="modal-title">Modal Title</h2>
+                <div class="close-modal" id="close-modal">
+                    <i data-lucide="x"></i>
+                </div>
+            </div>
+            <div id="modal-body">
+                <!-- Modal content injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
